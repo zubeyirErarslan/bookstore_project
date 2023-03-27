@@ -1,0 +1,27 @@
+version: "3.17"
+services:
+  database:
+    image: mysql:5.7
+    container_name: database 
+    environment:
+      MYSQL_ROOT_PASSWORD: zbyr_12345
+      MYSQL_USER: zbyr
+      MYSQL_PASSWORD: zbyr_123
+      MYSQL_DATABASE: bookstore_db
+    networks:
+      - zbyrnet
+  myapp:
+    image: zbyr/bookstoreapi:latest
+    container_name: myapp
+    restart: always
+    depends_on: 
+      - database
+    ports:
+      - 80:80
+    networks:
+      - zbyrnet
+networks:
+  zbyrnet:
+    driver: bridge
+
+    
